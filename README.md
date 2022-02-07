@@ -1,3 +1,11 @@
+
+# Recipe App
+
+A simple cookbook website utilizing web api from The MealDb Api: https://www.themealdb.com/api.php, using React.
+
+
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
