@@ -5,36 +5,26 @@ import { useEffect, useState } from "react";
 
 
 function App() {
-
+  const [searchWord, setSearchWord] = useState("");
   const [recipes, setRecipes] = useState([]);
 
-  function searchRecipe(word){
-   
-      console.log(word);
-      axios.get("https://www.themealdb.com/api/json/v1/1/search.php?s="+word)  
-      .then(res=> {
-        const {meals} = res.data;
-        console.log(meals);
-        
-        setRecipes(meals);
-      })
-      .catch(err=>{
-        console.error(err);
-      })
+  
+  useEffect(()=>{
+if (searchWord === "") return;
+    axios.get(`https://www.themealdb.com/api/json/v1/1/search.php?s=${searchWord}`)  
+    .then(res=> {
+      const {meals} = res.data;
       
-   
+      setRecipes(meals);
+    })
+    .catch(err=>{
+      console.error(err);
+    })
     
+  },[searchWord]);
+  
 
 
-
-  //  setRecipes(()=>{
-  //       return recipes.filter(recipe=>{
-  //     if(recipe.strMeal.includes(word)){
-  //       return recipe;
-  //     }})
-  //   }
-  //    )
-  }
 
 useEffect(()=>{
 
@@ -55,7 +45,9 @@ useEffect(()=>{
 
   return (
     <div>
-      <Nav search={searchRecipe}/>
+      <Nav search={(searchItem)=>{
+       setSearchWord(searchItem)}}
+       />
 
     <RecipeList list={recipes}/>
      
